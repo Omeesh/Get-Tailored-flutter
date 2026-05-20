@@ -101,22 +101,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           _buildCurrentScreen(),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _BottomNavBar(
-              currentTab: _currentTab,
-              onTabChanged: _onBottomNavTap,
-            ),
-          ),
           const Positioned(
-            bottom: 94,
+            bottom: 10,
             right: 18,
             child: _ContextFab(),
           ),
         ],
       ),
+      bottomNavigationBar: _BottomNavBar(
+        currentTab: _currentTab,
+         onTabChanged: _onBottomNavTap,)
     );
   }
 
@@ -176,7 +170,7 @@ class _HomeContentScreen extends StatelessWidget {
         const _HomeBackground(),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 96),
+            padding: const EdgeInsets.only(bottom: 10), // Extra space for FAB
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,13 +223,14 @@ class _HomeAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              IconButton(
-                icon: const Icon(Icons.menu, size: 28),
-                color: AppColors.primaryContainer,
-                tooltip: 'Open menu',
+              FloatingActionButton.small(
+                heroTag: 'menu_open',
                 onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-              const SizedBox(width: 12),
+                tooltip: 'Open Menu',
+                backgroundColor: Colors.transparent,
+                child: const Icon(Icons.menu, size: 25, color: AppColors.primary),
+                ),
+              const SizedBox(width: 10),
               const Text(
                 'GetTailored',
                 style: TextStyle(
@@ -1029,48 +1024,34 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(18, 14, 18, 26),
-      decoration: BoxDecoration(
-        color: const Color(0xEB1C1B1B),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-        boxShadow: [
-          const BoxShadow(
-            color: Color(0x73000000),
-            blurRadius: 26,
-            offset: Offset(0, -10),
+
+    return BottomNavigationBar(
+        currentIndex: currentTab,
+       elevation: 0, 
+        onTap: (index) {
+          // setState(() {
+          //   currentTab = index;
+          // });
+          onTabChanged(index);
+        },
+        iconSize: 25,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        selectedItemColor: AppColors.primary,
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.shopping_bag),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          GestureDetector(
-            onTap: () => onTabChanged(0),
-            child: _NavItem(
-              icon: Icons.home,
-              label: 'Home',
-              isActive: currentTab == 0,
-            ),
-          ),
-          GestureDetector(
-            onTap: () => onTabChanged(1),
-            child: _NavItem(
-              icon: Icons.reorder,
-              label: 'Orders',
-              isActive: currentTab == 1,
-            ),
-          ),
-          GestureDetector(
-            onTap: () => onTabChanged(2),
-            child: _NavItem(
-              icon: Icons.person,
-              label: 'Profile',
-              isActive: currentTab == 2,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

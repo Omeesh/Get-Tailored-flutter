@@ -21,8 +21,11 @@ class MenuDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surfaceContainerHigh,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
@@ -57,7 +60,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'arjun@gettailored.com',
+                  'johndoe@gettailored.com',
                   style: TextStyle(
                     color: AppColors.onSurfaceVariant,
                     fontSize: 13,
@@ -66,7 +69,11 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ],
             ),
+            ),
+
           ),
+
+
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 12),
@@ -75,7 +82,8 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.home,
                   label: 'Home',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Scaffold.of(context).closeDrawer();
+                    // Navigator.pop(context);
                     onMenuItemTap('home');
                   },
                 ),
@@ -83,7 +91,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.shopping_bag,
                   label: 'My Orders',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('orders');
                   },
                 ),
@@ -91,7 +99,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.person,
                   label: 'Profile',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('profile');
                   },
                 ),
@@ -99,7 +107,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.favorite,
                   label: 'Wishlist',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('wishlist');
                   },
                 ),
@@ -107,7 +115,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.notifications,
                   label: 'Notifications',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('notifications');
                   },
                 ),
@@ -116,7 +124,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.settings,
                   label: 'Settings',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('settings');
                   },
                 ),
@@ -124,7 +132,7 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.help,
                   label: 'Help & Support',
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('help');
                   },
                 ),
@@ -133,7 +141,7 @@ class MenuDrawer extends StatelessWidget {
                   label: 'Logout',
                   isDestructive: true,
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     onMenuItemTap('logout');
                   },
                 ),
