@@ -1056,42 +1056,6 @@ class _BottomNavBar extends StatelessWidget {
   }
 }
 
-class _NavItem extends StatelessWidget {
-  const _NavItem({
-    required this.icon,
-    required this.label,
-    this.isActive = false,
-  });
-
-  final IconData icon;
-  final String label;
-  final bool isActive;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          color: isActive ? AppColors.primary : AppColors.onSurfaceVariant,
-          size: 26,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            color: isActive ? AppColors.primary : AppColors.onSurfaceVariant,
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.2,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _ContextFab extends StatelessWidget {
   const _ContextFab();
 
