@@ -1,0 +1,11 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd '/Users/omeeshsharma/Documents/Flutter Projects/get_tailored' && python3 - <<'PY'\nfrom pathlib import Path\ntext = Path\\('lib/profile_screen\\.dart'\\)\\.read_text\\(\\)\npos = 6382\nline = text\\.count\\('\\\\n', 0, pos\\) \\+ 1\ncol = pos - text\\.rfind\\('\\\\n', 0, pos\\)\nprint\\(line, col\\)\nprint\\(text\\[pos-40:pos\\+40\\]\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "workbench.colorTheme": "Dark 2026",
+    "workbench.editor.decorations.colors": true,
+    "workbench.preferredDarkColorTheme": "Dark 2026"
+}
