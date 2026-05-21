@@ -297,6 +297,7 @@ class _OrderFinalizationScreenState extends State<OrderFinalizationScreen> {
                   ),
                 ),
                 onPressed: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
                   _showSnackBar(
                     'Order placed for ${widget.selectedGarment}! Check your email for the quote.',
                   );
