@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'app_theme.dart';
+import 'order_measurement_screen.dart';
 
 class NewOrderScreen extends StatefulWidget {
   const NewOrderScreen({super.key});
@@ -47,9 +49,93 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
     super.dispose();
   }
 
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+  void _showFabricPickerModal(BuildContext context) {
+    final List<String> fabricOptions = [
+      'Select Fabric Type',
+      'Banarasi Silk',
+      'Pashmina Wool',
+      'Khadi Cotton',
+      'Linen',
+      'Velvet',
+    ];
+
+    int selectedIndex = fabricOptions.indexOf(_selectedFabricType);
+    if (selectedIndex < 0) selectedIndex = 0;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            return Container(
+              height: 300,
+              decoration: const BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: AppColors.primary),
+                          ),
+                        ),
+                        const Text(
+                          'Select Fabric',
+                          style: TextStyle(
+                            color: AppColors.onSurface,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedFabricType = fabricOptions[selectedIndex];
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Done',
+                            style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: CupertinoPicker(
+                      itemExtent: 50,
+                      scrollController: FixedExtentScrollController(initialItem: selectedIndex),
+                      onSelectedItemChanged: (int index) {
+                        selectedIndex = index;
+                      },
+                      children: fabricOptions.map((String fabric) {
+                        return Center(
+                          child: Text(
+                            fabric,
+                            style: const TextStyle(
+                              color: AppColors.onSurface,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -133,25 +219,39 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Container(
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: AppColors.surfaceContainerHigher,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
+                // const SizedBox(width: 8),
+                // Expanded(
+                //   child: Container(
+                //     height: 4,
+                //     decoration: BoxDecoration(
+                //       color: AppColors.surfaceContainerHigher,
+                //       borderRadius: BorderRadius.circular(4),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(height: 28),
-            const Text(
-              'Select Garment',
-              style: TextStyle(
-                color: AppColors.onSurface,
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
+            Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Select ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: 'Garment',
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
@@ -393,36 +493,31 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: AppColors.surfaceContainerHigher),
-              ),
-              child: DropdownButtonFormField<String>(
-                initialValue: _selectedFabricType,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+            GestureDetector(
+              onTap: () => _showFabricPickerModal(context),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: AppColors.surfaceContainerHigher),
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'Select Fabric Type', child: Text('Select Fabric Type')),
-                  DropdownMenuItem(value: 'Banarasi Silk', child: Text('Banarasi Silk')),
-                  DropdownMenuItem(value: 'Pashmina Wool', child: Text('Pashmina Wool')),
-                  DropdownMenuItem(value: 'Khadi Cotton', child: Text('Khadi Cotton')),
-                  DropdownMenuItem(value: 'Linen', child: Text('Linen')),
-                  DropdownMenuItem(value: 'Velvet', child: Text('Velvet')),
-                ],
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      _selectedFabricType = value;
-                    });
-                  }
-                },
-                style: const TextStyle(color: AppColors.onSurface),
-                dropdownColor: AppColors.surfaceContainerHigh,
-                iconEnabledColor: AppColors.onSurfaceVariant,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _selectedFabricType,
+                      style: const TextStyle(
+                        color: AppColors.onSurface,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.expand_more,
+                      color: AppColors.onSurfaceVariant,
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -452,7 +547,13 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               ),
               onPressed: () {
-                _showSnackBar('Proceeding to measurements for $_selectedGarment.');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => OrderMeasurementScreen(
+                      selectedGarment: _selectedGarment,
+                    ),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
