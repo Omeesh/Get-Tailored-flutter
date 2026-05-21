@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: AppColors.background,
-        fontFamily: 'Plus Jakarta Sans',
         colorScheme: const ColorScheme.dark(
           surface: AppColors.surface,
           primary: AppColors.primary,
@@ -27,6 +26,12 @@ class MyApp extends StatelessWidget {
           onPrimary: AppColors.onPrimary,
           onSecondary: AppColors.onSecondary,
         ),
+        // fontFamily: 'Plus Jakarta Sans',
+        // fontFamilyFallback: [
+          // 'Apple Color Emoji',
+          // 'Segoe UI Emoji',
+          // 'Noto Color Emoji',
+        // ],
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 44,

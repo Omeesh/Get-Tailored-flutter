@@ -73,9 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       final label = item[0].toUpperCase() + item.substring(1);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$label is coming soon!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('$label is coming soon!')));
     }
   }
 
@@ -101,16 +101,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           _buildCurrentScreen(),
-          const Positioned(
-            bottom: 10,
-            right: 18,
-            child: _ContextFab(),
-          ),
+          // const Positioned(
+          //   bottom: 10,
+          //   right: 18,
+          //   child: _ContextFab(),
+          // ),
         ],
       ),
       bottomNavigationBar: _BottomNavBar(
         currentTab: _currentTab,
-         onTabChanged: _onBottomNavTap,)
+        onTabChanged: _onBottomNavTap,
+      ),
     );
   }
 
@@ -195,6 +196,7 @@ class _HomeContentScreen extends StatelessWidget {
             ),
           ),
         ),
+        const Positioned(bottom: 10, right: 18, child: _ContextFab()),
       ],
     );
   }
@@ -228,8 +230,12 @@ class _HomeAppBar extends StatelessWidget {
                 onPressed: () => Scaffold.of(context).openDrawer(),
                 tooltip: 'Open Menu',
                 backgroundColor: Colors.transparent,
-                child: const Icon(Icons.menu, size: 25, color: AppColors.primary),
+                child: const Icon(
+                  Icons.menu,
+                  size: 25,
+                  color: AppColors.primary,
                 ),
+              ),
               const SizedBox(width: 10),
               const Text(
                 'GetTailored',
@@ -372,10 +378,20 @@ class _HeroBanner extends StatelessWidget {
               ),
               Container(
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Color(0xE6131313), Colors.transparent],
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      "https://lh3.googleusercontent.com/aida-public/AB6AXuBnkz8fd03KbUUfvo4U8KwULvAs4gzIyAw3a0b0JthL1knxT0eRXDJDKBAUankdeT4yVE-sL4nguxTg5Zt9bswN2_QM5-SKXVJ6KODPj6qRKdIOhAZC-knziVKQZKE7BpEJfwzFssYsAlG44qEUjl4YiL3xOCNFYBRvlfie6SNLD8fyvSXTieJwKbNZfikQnWjRZESs0HMyyCSK9Ec3-5Eb0uEGsKg9NUWmiK4CvbdqJy6pF7wNjiXQxI7zvMH6Ww8Qhr7L9ECYUNw",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [Color(0xE6131313), Colors.transparent],
+                    ),
                   ),
                 ),
               ),
@@ -509,7 +525,9 @@ class _ActiveOrdersBanner extends StatelessWidget {
             TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Tracking feature will be available soon.')),
+                  const SnackBar(
+                    content: Text('Tracking feature will be available soon.'),
+                  ),
                 );
               },
               style: TextButton.styleFrom(foregroundColor: AppColors.primary),
@@ -548,7 +566,9 @@ class _CategoriesSection extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Category browsing is coming soon.')),
+                    const SnackBar(
+                      content: Text('Category browsing is coming soon.'),
+                    ),
                   );
                 },
                 style: TextButton.styleFrom(foregroundColor: AppColors.primary),
@@ -651,7 +671,11 @@ class _CategoryCard extends StatelessWidget {
                   )
                 : const SizedBox(),
           ),
-          Text(emoji, style: const TextStyle(fontSize: 40)),
+          Text(
+            emoji,
+            textAlign: TextAlign.left,
+            style: const TextStyle(fontSize: 40, inherit: true),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -772,6 +796,11 @@ class _AdsCarouselState extends State<_AdsCarousel> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(28),
+                              image: DecorationImage(
+                                // image: NetworkImage(ad['imageUrl'] ?? ""),
+                                image: NetworkImage(ad['imageUrl'] ?? ""),
+                                fit: BoxFit.cover,
+                              ),
                               gradient: const LinearGradient(
                                 begin: Alignment.bottomCenter,
                                 end: Alignment.topCenter,
@@ -780,6 +809,15 @@ class _AdsCarouselState extends State<_AdsCarousel> {
                                   Color(0x66131313),
                                 ],
                               ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0xEB131313), Colors.transparent],
                             ),
                           ),
                         ),
@@ -813,7 +851,7 @@ class _AdsCarouselState extends State<_AdsCarousel> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          ad['title']!,
+                                          ad['title'] ?? "No Title",
                                           style: const TextStyle(
                                             color: AppColors.primary,
                                             fontSize: 12,
@@ -919,7 +957,7 @@ class _TrendingGrid extends StatelessWidget {
                 subtitle: 'Essentials',
                 price: '',
                 imageUrl:
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuCOAcnQBJOQetYUO2w98p3uZRpRsO3Cix7uDVuxYQg8JdwuOGxfjdag8h1wniKd3KhVb96Wvbo7rbkK7TUKRIJl-4e50lxSbB6930AZW8qXkZlqMPDVPjp9-snQFsREg_rg4Rbg1a_wvvBJOdE_N6HZEfjoBHsqGOEfMHhMM01fnYLO27PT55XdXk4wAPA4WrAWu5V8NaOSQCCCLVhJ99HvQ3QtmBR5Cv62XqBt7etW68hxSlvAWWXA4o_MaDDdpTIKhVDahyDGWGt8',
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuCOAcnQBJOQetYUO2w98p3uZRpRsO3Cix7uDVuxYQg8JdwuOGxfjdag8h1wniKd3KhVb96Wvbo7rbkK7TUKRIJl-4e50lxSbB6930AZW8qXkZlqMPDVPjp9-snQFsREg_rg4Rbg1a_wvvBJOd8N6HZEfjoBHsqGOEfMHhMM01fnYLO27PT55XdXk4wAPA4WrAWu5V8NaOSQCCCLVhJ99HvQ3QtmBR5Cv62XqBt7etW68hxSlvAWWXA4o_MaDDdpTIKhVDahyDGWGt8',
               ),
               _TrendingCard(
                 title: 'Bespoke Shirts',
@@ -956,9 +994,13 @@ class _TrendingCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              color: AppColors.surfaceContainerHigh,
-            ),
+            decoration: BoxDecoration(color: AppColors.surfaceContainerHigh),
+          ),
+          Image(
+            image: NetworkImage(imageUrl),
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
           Container(
             decoration: const BoxDecoration(
@@ -1014,44 +1056,37 @@ class _TrendingCard extends StatelessWidget {
 }
 
 class _BottomNavBar extends StatelessWidget {
-  const _BottomNavBar({
-    required this.currentTab,
-    required this.onTabChanged,
-  });
+  const _BottomNavBar({required this.currentTab, required this.onTabChanged});
 
   final int currentTab;
   final Function(int) onTabChanged;
 
   @override
   Widget build(BuildContext context) {
-
     return BottomNavigationBar(
-        currentIndex: currentTab,
-       elevation: 0, 
-        onTap: (index) {
-          // setState(() {
-          //   currentTab = index;
-          // });
-          onTabChanged(index);
-        },
-        iconSize: 25,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        selectedItemColor: AppColors.primary,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.shopping_bag),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      currentIndex: currentTab,
+      elevation: 0,
+      onTap: (index) {
+        // setState(() {
+        //   currentTab = index;
+        // });
+        onTabChanged(index);
+      },
+      iconSize: 25,
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
+      selectedItemColor: AppColors.primary,
+      items: [
+        BottomNavigationBarItem(icon: const Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.shopping_bag),
+          label: 'Orders',
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
@@ -1063,11 +1098,9 @@ class _ContextFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const NewOrderScreen(),
-          ),
-        );
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (context) => const NewOrderScreen()));
       },
       backgroundColor: AppColors.primary,
       child: const Icon(Icons.add, color: AppColors.onPrimary),

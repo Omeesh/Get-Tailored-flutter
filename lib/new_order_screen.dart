@@ -10,22 +10,35 @@ class NewOrderScreen extends StatefulWidget {
 
 class _NewOrderScreenState extends State<NewOrderScreen> {
   final TextEditingController _notesController = TextEditingController();
-  final List<Map<String, String>> _garments = [
+  final List<Map<String, String>> _garments_male = [
     {
       'label': 'Sherwani',
-      'emoji': '🤵',
+      'emoji': '\u{1F935}',
       'description': 'Traditional wedding & ceremonial',
       'tag': 'Popular',
     },
-    {'label': 'Kurta', 'emoji': '👕', 'description': 'Comfortable everyday wear'},
-    {'label': 'Trousers', 'emoji': '👖', 'description': 'Tailored fit essentials'},
-    {'label': 'Nehru Jacket', 'emoji': '🧥', 'description': 'Smart formal layering', 'tag': 'New'},
-    {'label': 'Formal Shirt', 'emoji': '👔', 'description': 'Perfect for events'},
+    {'label': 'Kurta', 'emoji': '\u{1F455}', 'description': 'Comfortable everyday wear'},
+    {'label': 'Trousers', 'emoji': '\u{1F456}', 'description': 'Tailored fit essentials'},
+    {'label': 'Nehru Jacket', 'emoji': '\u{1F9E5}', 'description': 'Smart formal layering', 'tag': 'New'},
+    {'label': 'Formal Shirt', 'emoji': '\u{1F454}', 'description': 'Perfect for events'},
+  ];
+
+  final List<Map<String, String>> _garments_female = [
+    {
+      'label': 'Saree',
+      'emoji': '\u{1F457}',
+      'description': 'Traditional wedding & ceremonial',
+      'tag': 'Popular',
+    },
+    {'label': 'Kurti', 'emoji': '\u{1F455}', 'description': 'Comfortable everyday wear'},
+    {'label': 'Coord Set', 'emoji': '\u{1F456}', 'description': 'Tailored fit essentials'},
+    {'label': 'Salwar Kamiz', 'emoji': '\u{1F9E5}', 'description': 'Tailored fit', 'tag': 'New'},
+    {'label': 'Night Suit', 'emoji': '\u{1F634}', 'description': 'Perfect for sleep'},
   ];
 
   String _selectedGarment = 'Sherwani';
   bool _isMale = true;
-  bool _hasOwnFabric = true;
+  bool _hasOwnFabric = false;
   String _selectedFabricType = 'Select Fabric Type';
 
   @override
@@ -56,29 +69,32 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
             fontSize: 20,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColors.primaryContainer),
+        leading: FloatingActionButton.small(
           onPressed: () => Navigator.of(context).pop(),
           tooltip: 'Close',
+          backgroundColor: Colors.transparent,
+          heroTag: 'close_btn',
+          elevation: 0,
+          child: const Icon(Icons.close, color: AppColors.primaryContainer),
         ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.3)),
-              color: AppColors.surfaceContainerHigh,
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.person,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Container(
+        //     margin: const EdgeInsets.only(right: 16),
+        //     width: 40,
+        //     height: 40,
+        //     decoration: BoxDecoration(
+        //       shape: BoxShape.circle,
+        //       border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.3)),
+        //       color: AppColors.surfaceContainerHigh,
+        //     ),
+        //     child: const Center(
+        //       child: Icon(
+        //         Icons.person,
+        //         color: AppColors.primary,
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -228,7 +244,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               childAspectRatio: 1,
-              children: _garments.map((garment) {
+              children:  (_isMale ? _garments_male : _garments_female).map((garment) {
                 final selected = garment['label'] == _selectedGarment;
                 return _GarmentCard(
                   label: garment['label']!,
@@ -259,7 +275,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                       ? AppColors.surfaceContainerLow.withValues(alpha: 0.9)
                       : AppColors.surface,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.25), width: 1.5),
+                  border: _hasOwnFabric ? Border.all(color: AppColors.primary.withValues(alpha: 0.25), width: 1.5) : Border.all(color: AppColors.surfaceContainerHigher, width: 1.5),
                 ),
                 child: Row(
                   children: [
@@ -299,7 +315,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        color: _hasOwnFabric ? AppColors.onPrimary : Colors.transparent,
+                        color: _hasOwnFabric ? AppColors.primary : Colors.transparent,
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.primary, width: 2),
                       ),
@@ -316,7 +332,8 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                 decoration: BoxDecoration(
                   color: !_hasOwnFabric ? AppColors.surfaceContainerLow.withValues(alpha: 0.9) : AppColors.surface,
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.surfaceContainerHigher),
+                  border: !_hasOwnFabric ? Border.all(color: AppColors.primary.withValues(alpha: 0.25), width: 1.5) : Border.all(color: AppColors.surfaceContainerHigher, width: 1.5),
+
                 ),
                 child: Row(
                   children: [
@@ -356,7 +373,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        color: !_hasOwnFabric ? AppColors.onPrimary : Colors.transparent,
+                        color: !_hasOwnFabric ? AppColors.primary : Colors.transparent,
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.primary, width: 2),
                       ),
@@ -511,7 +528,7 @@ class _GarmentCard extends StatelessWidget {
             const Spacer(),
             Text(
               emoji,
-              style: const TextStyle(fontSize: 36),
+              style: const TextStyle(fontSize: 25, inherit: true),
             ),
             const SizedBox(height: 16),
             Text(
