@@ -99,7 +99,6 @@ class MenuDrawer extends StatelessWidget {
                   icon: Icons.person,
                   label: 'Profile',
                   onTap: () {
-                    // Navigator.pop(context);
                     onMenuItemTap('profile');
                   },
                 ),
