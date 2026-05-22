@@ -12,7 +12,7 @@ on:
 
 
 jobs:
-  test:
+  Build-and-Test-Flutter:
     runs-on: ubuntu-latest
     
     steps:

@@ -29,8 +29,6 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'Plus Jakarta Sans',
         // fontFamilyFallback: [
           // 'Apple Color Emoji',
-          // 'Segoe UI Emoji',
-          // 'Noto Color Emoji',
         // ],
         textTheme: const TextTheme(
           displayLarge: TextStyle(
