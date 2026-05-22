@@ -10,15 +10,10 @@ on:
     branches:
       - main
 
-  push:
-    branches:
-      - main
-      - development
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     
     steps:
       - name: Checkout repository
