@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -116,7 +117,15 @@ class LoginScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 54,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryContainer,
                                 foregroundColor: AppColors.onPrimary,
@@ -139,7 +148,15 @@ class LoginScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 54,
                             child: OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
                               style: OutlinedButton.styleFrom(
                                 side: const BorderSide(
                                   color: Color(0x73C9954A),

@@ -55,7 +55,7 @@ class OrderDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLow,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.outlineVariant.withOpacity(0.08)),
+                border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.08)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class OrderDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLowest,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.outlineVariant.withOpacity(0.08)),
+                border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.08)),
               ),
               child: Column(
                 children: [
@@ -227,7 +227,7 @@ class _TimelineItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
-              Container(width: 2, height: 48, color: AppColors.outlineVariant.withOpacity(0.2))
+              Container(width: 2, height: 48, color: AppColors.outlineVariant.withValues(alpha: 0.2))
             ],
           ),
           const SizedBox(width: 12),
@@ -236,9 +236,9 @@ class _TimelineItem extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: active
                   ? BoxDecoration(
-                      color: AppColors.surfaceContainerHigh.withOpacity(0.4),
+                      color: AppColors.surfaceContainerHigh.withValues(alpha: 0.4),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
                     )
                   : null,
               child: Column(
