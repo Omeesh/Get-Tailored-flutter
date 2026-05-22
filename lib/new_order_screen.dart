@@ -12,7 +12,7 @@ class NewOrderScreen extends StatefulWidget {
 
 class _NewOrderScreenState extends State<NewOrderScreen> {
   final TextEditingController _notesController = TextEditingController();
-  final List<Map<String, String>> _garments_male = [
+  final List<Map<String, String>> _garmentsMale = [
     {
       'label': 'Sherwani',
       'emoji': '\u{1F935}',
@@ -25,7 +25,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
     {'label': 'Formal Shirt', 'emoji': '\u{1F454}', 'description': 'Perfect for events'},
   ];
 
-  final List<Map<String, String>> _garments_female = [
+  final List<Map<String, String>> _garmentsFemale = [
     {
       'label': 'Saree',
       'emoji': '\u{1F457}',
@@ -344,7 +344,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               childAspectRatio: 1,
-              children:  (_isMale ? _garments_male : _garments_female).map((garment) {
+              children:  (_isMale ? _garmentsMale : _garmentsFemale).map((garment) {
                 final selected = garment['label'] == _selectedGarment;
                 return _GarmentCard(
                   label: garment['label']!,
