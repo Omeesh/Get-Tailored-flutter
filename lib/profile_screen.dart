@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
 import 'login_screen.dart';
+import 'edit_profile.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, this.userName});
@@ -84,7 +85,14 @@ class ProfileScreen extends StatelessWidget {
                       _ProfileOption(
                         icon: Icons.person,
                         label: 'Edit Profile',
-                        onTap: () => showMessage('Edit Profile'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _ProfileOption(
                         icon: Icons.location_on,
